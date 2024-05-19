@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Tenancy\TaskController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -28,9 +29,13 @@ Route::middleware([
     });
 
     Route::middleware('auth')->group(function () {
+
         Route::get('/dashboard', function () {
             return view('tenancy.dashboard');
         })->name('dashboard');
+
+        Route::resource('tasks', TaskController::class);
+        
     });
 
     require __DIR__ . '/auth.php';
