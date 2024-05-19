@@ -23,7 +23,7 @@
                         <th scope="col" class="px-6 py-3">
                             Dominio
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 flex justify-center">
                             Acciones
                         </th>
                     </tr>
@@ -42,8 +42,15 @@
                                 
                             </td>
                             <td class="px-6 py-4">
-                                <div>
+                                <div class="flex justify-center">
+
                                     <a href="{{ route('tenants.edit', $tenant) }}" class="btn btn-green">Editar</a>
+
+                                    <form action="{{ route('tenants.destroy', $tenant) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button  class="btn btn-red ml-2">Eliminar</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
