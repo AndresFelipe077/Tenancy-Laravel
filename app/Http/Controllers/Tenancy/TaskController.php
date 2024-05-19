@@ -14,9 +14,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('tenancy.tasks.index', [
-            'tasks' => Task::all(),
-        ]);
+        $tasks = Task::paginate();
+        return view('tenancy.tasks.index', compact('tasks'));
     }
 
     /**
@@ -67,7 +66,21 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $data = $request->validate([
+            'name'        => 'required',
+            'description' => 'required',
+            'image_url'   => 'nullable|image',
+        ]);
+
+        if($request->hasFile('image_url')) {
+            Storage::delete($task->image_url);
+            $data['image_url'] = Storage::put('tasks', $request->file('image_url'));
+        }
+
+        $task->update($data);
+
+        return redirect()->route('tasks.index');
+
     }
 
     /**
