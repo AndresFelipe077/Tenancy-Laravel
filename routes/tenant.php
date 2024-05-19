@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Tenancy\TaskController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -35,7 +36,12 @@ Route::middleware([
         })->name('dashboard');
 
         Route::resource('tasks', TaskController::class);
-        
+
+        Route::get('file/{path}', function ($path) {
+            return response()->file(Storage::path($path));
+        })
+            ->where('path', '.*') // Recognize special characters in the path => "file/task/image.png"
+            ->name('file');
     });
 
     require __DIR__ . '/auth.php';

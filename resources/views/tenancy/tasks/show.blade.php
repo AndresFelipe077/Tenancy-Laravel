@@ -16,6 +16,7 @@
 
                 <p class="text-white">{{ $task->description }}</p>
 
+                <img src="{{ route('file', $task->image_url) }}" alt="Image task">
             </div>
 
         </div>
