@@ -31,7 +31,7 @@ class TenantController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id' => 'required',
+            'id' => 'required|unique:tenants',
         ]);
 
         $tenant = Tenant::create($request->all());
@@ -68,7 +68,19 @@ class TenantController extends Controller
      */
     public function update(Request $request, Tenant $tenant)
     {
-        //
+        $request->validate([
+            'id' => 'required|unique:tenants,id,' . $tenant->id,
+        ]);
+
+        $tenant->update([
+            'id' => $request->get('id'),
+        ]);
+
+        $tenant->domains()->update([
+            'domain' => $request->get('id') . '.' . 'tenancy.test',
+        ]);
+
+        return redirect()->route('tenants.index');
     }
 
     /**

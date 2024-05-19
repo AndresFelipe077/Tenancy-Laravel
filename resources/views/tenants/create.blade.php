@@ -19,7 +19,7 @@
                     <x-input-label>
                       Nombre
                     </x-input-label>
-                    <x-text-input type="text" name="id" class="w-full mt-2" placeholder="Ingresa el nombre"/>
+                    <x-text-input type="text" name="id" value="{{ old('id') }}" class="w-full mt-2" placeholder="Ingresa el nombre"/>
                     <x-input-error :messages="$errors->first('id')" />
                   </div>
 
