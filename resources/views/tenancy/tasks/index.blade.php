@@ -7,7 +7,11 @@
     </x-slot>
 
     <x-container class="py-12">
-
+        <div class="flex justify-end">
+            <a href="{{ route('tasks.create') }}" class="btn btn-blue">
+                New task
+            </a>
+        </div>
     </x-container>
 
 </x-tenancy-layout>
