@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Tenancy\TaskController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -25,7 +26,21 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+
     Route::get('/', function () {
+
+        // $user = null;
+
+        // tenancy()->central(function () use (&$user) {
+        //     $user = User::first();
+        // });
+
+        // if ($user) {
+        //     dd($user->email);
+        // } else {
+        //     dd('No user found');
+        // }
+
         return view('tenancy.welcome');
     });
 

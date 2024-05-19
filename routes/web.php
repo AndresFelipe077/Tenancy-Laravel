@@ -2,9 +2,24 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TenantController;
+use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+
+    $tenant = Tenant::where('id', 'bar')->first();
+
+    tenancy()->initialize($tenant);
+
+    $user = User::first();
+
+    tenancy()->end();
+
+    $user = User::all();
+
+    // return $user;
+
     return view('welcome');
 });
 
